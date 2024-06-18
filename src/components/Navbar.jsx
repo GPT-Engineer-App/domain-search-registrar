@@ -1,4 +1,5 @@
-import { Box, Flex, Link, Spacer, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Spacer, Text, Image } from "@chakra-ui/react";
+import cartIcon from "../../public/images/cart-icon.png"; // Assuming the cart icon is saved in this path
 import { Link as RouterLink } from "react-router-dom";
 import { FaShoppingCart } from 'react-icons/fa';
 
@@ -20,7 +21,7 @@ const Navbar = () => {
           Contact
         </Link>
         <Link as={RouterLink} to="/cart" color="white" mx={2}>
-          <FaShoppingCart />
+          <Image src={cartIcon} alt="Cart" boxSize="24px" />
         </Link>
       </Flex>
     </Box>

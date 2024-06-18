@@ -1,4 +1,5 @@
 import { useState } from "react";
+import magnifyingGlassIcon from "../../public/images/magnifying-glass-icon.png"; // Assuming the magnifying glass icon is saved in this path
 import { Container, VStack, Input, Button, Box, Flex, Text, SimpleGrid, Image, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import domains from "../data/domains.json";
@@ -25,7 +26,7 @@ const Index = () => {
             placeholder="What domain would you like"
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
-            leftElement={<FaSearch color="gray.300" />}
+            leftElement={<Image src={magnifyingGlassIcon} alt="Search" boxSize="24px" />}
             flex="1"
           />
           <Button onClick={handleSearch} colorScheme="blue" ml={2}>
