@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, VStack, Input, Button, Box, Flex, Text } from "@chakra-ui/react";
+import { Container, VStack, Input, Button, Box, Flex, Text, SimpleGrid, Image } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import domains from "../data/domains.json";
 
@@ -18,7 +18,7 @@ const Index = () => {
   };
 
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="flex-start" alignItems="center" pt={10}>
       <VStack spacing={4} width="100%">
         <Flex width="100%">
           <Input
@@ -42,6 +42,24 @@ const Index = () => {
           </Box>
         )}
       </VStack>
+      <SimpleGrid columns={2} spacing={10} mt={10}>
+        <Box textAlign="center">
+          <Image src="/images/domain-names.jpg" alt="Domain Names" />
+          <Text mt={2}>Domain Names</Text>
+        </Box>
+        <Box textAlign="center">
+          <Image src="/images/hot-tlds.jpg" alt="Hot TLDs" />
+          <Text mt={2}>Hot TLDs</Text>
+        </Box>
+        <Box textAlign="center">
+          <Image src="/images/advanced-search.jpg" alt="Advanced Search" />
+          <Text mt={2}>Advanced Search</Text>
+        </Box>
+        <Box textAlign="center">
+          <Image src="/images/expired-auctions.jpg" alt="Expired Auctions" />
+          <Text mt={2}>Expired Auctions</Text>
+        </Box>
+      </SimpleGrid>
     </Container>
   );
 };
