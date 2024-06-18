@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Container, Text, VStack, Input, Button, Box, Spinner, Alert, AlertIcon } from "@chakra-ui/react";
+import { Container, VStack, Input, Button, Box, Flex, Text } from "@chakra-ui/react";
+import { FaSearch } from "react-icons/fa";
 import domains from "../data/domains.json";
 
 const checkDomainAvailability = (domain) => {
@@ -18,11 +19,19 @@ const Index = () => {
 
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Domain Name Registrar</Text>
-        
-        <Input placeholder="Enter domain name" value={domain} onChange={(e) => setDomain(e.target.value)} />
-        <Button onClick={handleSearch} colorScheme="blue">Check Availability</Button>
+      <VStack spacing={4} width="100%">
+        <Flex width="100%">
+          <Input
+            placeholder="What domain would you like"
+            value={domain}
+            onChange={(e) => setDomain(e.target.value)}
+            leftElement={<FaSearch color="gray.300" />}
+            flex="1"
+          />
+          <Button onClick={handleSearch} colorScheme="blue" ml={2}>
+            Search Domains
+          </Button>
+        </Flex>
         {search && (
           <Box>
             {search.isUnavailable ? (
