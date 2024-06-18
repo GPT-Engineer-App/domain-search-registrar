@@ -8,9 +8,15 @@ const fetchDomainAvailability = async (domain, username, password) => {
       "Authorization": "Basic " + btoa(username + ":" + password)
     }
   });
+
+  if (response.status === 401) {
+    throw new Error("Invalid credentials. Please check your username and password.");
+  }
+
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
+
   return response.json();
 };
 
@@ -38,7 +44,7 @@ const Index = () => {
         {error && (
           <Alert status="error">
             <AlertIcon />
-            There was an error processing your request
+            {error.message}
           </Alert>
         )}
         {data && (
