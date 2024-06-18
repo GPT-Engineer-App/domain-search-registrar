@@ -32,17 +32,8 @@ const Index = () => {
             Search Domains
           </Button>
         </Flex>
-        {search && (
-          <Box>
-            {search.isUnavailable ? (
-              <Text>This domain is not available.</Text>
-            ) : (
-              <Text>This domain is available for $11.97.</Text>
-            )}
-          </Box>
-        )}
-      </VStack>
-      <SimpleGrid columns={2} spacing={10} mt={10}>
+        </VStack>
+      <SimpleGrid columns={4} spacing={10} mt={10}>
         <Box textAlign="center">
           <Image src="/images/domain-names.jpg" alt="Domain Names" />
           <Text mt={2}>Domain Names</Text>
@@ -60,6 +51,15 @@ const Index = () => {
           <Text mt={2}>Expired Auctions</Text>
         </Box>
       </SimpleGrid>
+      {search && (
+        <Box mt={10}>
+          {search.isUnavailable ? (
+            <Text>This domain is not available.</Text>
+          ) : (
+            <Text>This domain is available for $11.97.</Text>
+          )}
+        </Box>
+      )}
     </Container>
   );
 };
