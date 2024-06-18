@@ -29,15 +29,13 @@ const performDomainAction = async ({ action, domain }) => {
 };
 
 const Index = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [domain, setDomain] = useState("");
   const [search, setSearch] = useState("");
   const [action, setAction] = useState("");
 
   const queryClient = useQueryClient();
 
-  const { data, error, isLoading } = useQuery(["domainAvailability", search], () => fetchDomainAvailability(search, username, password), {
+  const { data, error, isLoading } = useQuery(["domainAvailability", search], () => fetchDomainAvailability(search, document.getElementById("username").value, document.getElementById("password").value), {
     enabled: !!search,
   });
 
@@ -59,8 +57,8 @@ const Index = () => {
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>
         <Text fontSize="2xl">Domain Name Registrar</Text>
-        <Input placeholder="Enter CZDS username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <Input placeholder="Enter CZDS password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input id="username" placeholder="Enter CZDS username" />
+        <Input id="password" placeholder="Enter CZDS password" type="password" />
         <Input placeholder="Enter domain name" value={domain} onChange={(e) => setDomain(e.target.value)} />
         <Button onClick={handleSearch} colorScheme="blue">Check Availability</Button>
         {isLoading && <Spinner />}
