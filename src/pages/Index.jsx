@@ -2,23 +2,21 @@ import { useState } from "react";
 import { Container, Text, VStack, Input, Button, Box, Spinner, Alert, AlertIcon } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 
-const fetchDomainAvailability = async (domain, username, password) => {
+const fetchDomainAvailability = async (domain) => {
   try {
-    const response = await fetch(`https://czds-api.icann.org/domains/${domain}`, {
-      headers: {
-        "Authorization": "Basic " + btoa(username + ":" + password)
-      }
-    });
-
-    if (response.status === 401) {
-      throw new Error("Invalid credentials. Please check your username and password.");
-    }
+    const response = await fetch(`https://whois-json.who-dat.dev/whois/${domain}`);
 
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
 
-    return response.json();
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    return data;
   } catch (error) {
     console.error("Error fetching domain availability:", error);
     throw error;
@@ -29,7 +27,7 @@ const Index = () => {
   const [domain, setDomain] = useState("");
   const [search, setSearch] = useState("");
 
-  const { data, error, isLoading } = useQuery(["domainAvailability", search], () => fetchDomainAvailability(search, document.getElementById("username").value, document.getElementById("password").value), {
+  const { data, error, isLoading } = useQuery(["domainAvailability", search], () => fetchDomainAvailability(search), {
     enabled: !!search,
   });
 
@@ -42,8 +40,7 @@ const Index = () => {
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>
         <Text fontSize="2xl">Domain Name Registrar</Text>
-        <Input id="username" placeholder="Enter CZDS username" />
-        <Input id="password" placeholder="Enter CZDS password" type="password" />
+        
         <Input placeholder="Enter domain name" value={domain} onChange={(e) => setDomain(e.target.value)} />
         <Button onClick={handleSearch} colorScheme="blue">Check Availability</Button>
         {isLoading && <Spinner />}
@@ -55,10 +52,10 @@ const Index = () => {
         )}
         {data && (
           <Box>
-            {data.status === "available" ? (
-              <Text>Domain is available!</Text>
+            {data.registered ? (
+              <Text>This domain is not available.</Text>
             ) : (
-              <Text>Domain is unavailable.</Text>
+              <Text>This domain is available for $11.97.</Text>
             )}
           </Box>
         )}
