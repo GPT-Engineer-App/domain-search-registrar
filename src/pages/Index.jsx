@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, VStack, Input, Button, Box, Flex, Text, SimpleGrid, Image } from "@chakra-ui/react";
+import { Container, VStack, Input, Button, Box, Flex, Text, SimpleGrid, Image, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import domains from "../data/domains.json";
 
@@ -32,7 +32,7 @@ const Index = () => {
             Search Domains
           </Button>
         </Flex>
-        </VStack>
+      </VStack>
       <SimpleGrid columns={4} spacing={10} mt={10}>
         <Box textAlign="center">
           <Image src="/images/domain-names.jpg" alt="Domain Names" />
@@ -53,11 +53,39 @@ const Index = () => {
       </SimpleGrid>
       {search && (
         <Box mt={10}>
-          {search.isUnavailable ? (
-            <Text>This domain is not available.</Text>
-          ) : (
-            <Text>This domain is available for $11.97.</Text>
-          )}
+          <Table variant="simple">
+            <Thead>
+              <Tr>
+                <Th>Domain</Th>
+                <Th>Status</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>{search.domain}</Td>
+                <Td>
+                  {search.isUnavailable ? (
+                    <>
+                      <Text>This domain is not available.</Text>
+                      <Box mt={4}>
+                        <Text>Suggested Alternatives:</Text>
+                        <VStack spacing={2} align="start">
+                          {[".co", ".io", ".net", ".org", ".biz", ".info", ".us", ".me", ".tv", ".online"].map((tld) => (
+                            <Text key={tld}>{`${search.domain.split('.')[0]}${tld}`}</Text>
+                          ))}
+                        </VStack>
+                      </Box>
+                    </>
+                  ) : (
+                    <>
+                      <Text>This domain is available for $11.97.</Text>
+                      <Button colorScheme="blue" mt={2}>Add to Cart</Button>
+                    </>
+                  )}
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
         </Box>
       )}
     </Container>
