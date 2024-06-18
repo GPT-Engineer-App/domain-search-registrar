@@ -2,8 +2,12 @@ import { useState } from "react";
 import { Container, Text, VStack, Input, Button, Box, Spinner, Alert, AlertIcon, Select } from "@chakra-ui/react";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
-const fetchDomainAvailability = async (domain) => {
-  const response = await fetch(`https://api.example.com/check-domain?domain=${domain}`);
+const fetchDomainAvailability = async (domain, username, password) => {
+  const response = await fetch(`https://api.example.com/check-domain?domain=${domain}`, {
+    headers: {
+      "Authorization": "Basic " + btoa(username + ":" + password)
+    }
+  });
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -25,13 +29,15 @@ const performDomainAction = async ({ action, domain }) => {
 };
 
 const Index = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [domain, setDomain] = useState("");
   const [search, setSearch] = useState("");
   const [action, setAction] = useState("");
 
   const queryClient = useQueryClient();
 
-  const { data, error, isLoading } = useQuery(["domainAvailability", search], () => fetchDomainAvailability(search), {
+  const { data, error, isLoading } = useQuery(["domainAvailability", search], () => fetchDomainAvailability(search, username, password), {
     enabled: !!search,
   });
 
@@ -53,6 +59,8 @@ const Index = () => {
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>
         <Text fontSize="2xl">Domain Name Registrar</Text>
+        <Input placeholder="Enter CZDS username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <Input placeholder="Enter CZDS password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <Input placeholder="Enter domain name" value={domain} onChange={(e) => setDomain(e.target.value)} />
         <Button onClick={handleSearch} colorScheme="blue">Check Availability</Button>
         {isLoading && <Spinner />}
