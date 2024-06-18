@@ -7,7 +7,13 @@ const fetchDomainAvailability = async (domain) => {
     const response = await fetch(`https://whois-json.who-dat.dev/whois/${domain}`);
 
     if (!response.ok) {
-      throw new Error("Network response was not ok");
+      if (response.status >= 500) {
+        throw new Error("Server error. Please try again later.");
+      } else if (response.status === 404) {
+        throw new Error("Domain not found. Please check the domain name and try again.");
+      } else {
+        throw new Error("Network response was not ok");
+      }
     }
 
     const data = await response.json();
@@ -47,7 +53,7 @@ const Index = () => {
         {error && (
           <Alert status="error">
             <AlertIcon />
-            {error.message}
+            {error.message.includes("NetworkError") ? "Network error. Please check your internet connection and try again." : error.message}
           </Alert>
         )}
         {data && (
