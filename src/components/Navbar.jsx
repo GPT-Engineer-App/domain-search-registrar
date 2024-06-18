@@ -1,5 +1,6 @@
 import { Box, Flex, Link, Spacer, Text } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
+import { FaShoppingCart } from 'react-icons/fa';
 
 const Navbar = () => {
   return (
@@ -17,6 +18,9 @@ const Navbar = () => {
         </Link>
         <Link as={RouterLink} to="/contact" color="white" mx={2}>
           Contact
+        </Link>
+        <Link as={RouterLink} to="/cart" color="white" mx={2}>
+          <FaShoppingCart />
         </Link>
       </Flex>
     </Box>
