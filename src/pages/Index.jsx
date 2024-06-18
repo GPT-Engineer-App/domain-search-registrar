@@ -3,21 +3,26 @@ import { Container, Text, VStack, Input, Button, Box, Spinner, Alert, AlertIcon 
 import { useQuery } from "react-query";
 
 const fetchDomainAvailability = async (domain, username, password) => {
-  const response = await fetch(`https://czds-api.icann.org/domains/${domain}`, {
-    headers: {
-      "Authorization": "Basic " + btoa(username + ":" + password)
+  try {
+    const response = await fetch(`https://czds-api.icann.org/domains/${domain}`, {
+      headers: {
+        "Authorization": "Basic " + btoa(username + ":" + password)
+      }
+    });
+
+    if (response.status === 401) {
+      throw new Error("Invalid credentials. Please check your username and password.");
     }
-  });
 
-  if (response.status === 401) {
-    throw new Error("Invalid credentials. Please check your username and password.");
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching domain availability:", error);
+    throw error;
   }
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  return response.json();
 };
 
 const Index = () => {
@@ -29,6 +34,7 @@ const Index = () => {
   });
 
   const handleSearch = () => {
+    console.log("Searching for domain:", domain);
     setSearch(domain);
   };
 
