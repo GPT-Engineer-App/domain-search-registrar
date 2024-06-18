@@ -1,0 +1,78 @@
+{
+  "godaddy.com": {
+    "name": "GODADDY.COM",
+    "registryDomainId": "4013247_DOMAIN_COM-VRSN",
+    "domainStatus": [
+      "clientDeleteProhibited",
+      "clientRenewProhibited",
+      "clientTransferProhibited",
+      "clientUpdateProhibited",
+      "serverDeleteProhibited",
+      "serverTransferProhibited",
+      "serverUpdateProhibited"
+    ],
+    "nameservers": [
+      "A1-245.AKAM.NET",
+      "A11-64.AKAM.NET",
+      "A20-65.AKAM.NET",
+      "A6-66.AKAM.NET",
+      "A8-67.AKAM.NET",
+      "A9-67.AKAM.NET",
+      "CNS1.GODADDY.COM",
+      "CNS2.GODADDY.COM"
+    ],
+    "dates": {
+      "registryExpiration": "2032-11-01T11:59:59Z",
+      "updated": "2023-10-26T20:31:51Z",
+      "created": "1999-03-02T05:00:00Z"
+    },
+    "contactInformation": {
+      "registrant": {
+        "handle": "1",
+        "name": "Registration Private",
+        "organization": "Domains By Proxy, LLC",
+        "kind": "individual",
+        "mailingAddress": "DomainsByProxy.com 100 S. Mill Ave, Suite 1600, Tempe, Arizona, 85281, US",
+        "contactUri": "https://www.godaddy.com/whois/results.aspx?domain=GODADDY.COM"
+      },
+      "administrative": {
+        "handle": "2",
+        "name": "Registration Private",
+        "organization": "Domains By Proxy, LLC",
+        "kind": "individual",
+        "mailingAddress": "DomainsByProxy.com 100 S. Mill Ave, Suite 1600, Tempe, Arizona, 85281, US",
+        "contactUri": "https://www.godaddy.com/whois/results.aspx?domain=GODADDY.COM"
+      },
+      "technical": {
+        "handle": "3",
+        "name": "Registration Private",
+        "organization": "Domains By Proxy, LLC",
+        "kind": "individual",
+        "mailingAddress": "DomainsByProxy.com 100 S. Mill Ave, Suite 1600, Tempe, Arizona, 85281, US",
+        "contactUri": "https://www.godaddy.com/whois/results.aspx?domain=GODADDY.COM"
+      },
+      "billing": {
+        "handle": "4",
+        "name": "Registration Private",
+        "organization": "Domains By Proxy, LLC",
+        "kind": "individual",
+        "mailingAddress": "DomainsByProxy.com 100 S. Mill Ave, Suite 1600, Tempe, Arizona, 85281, US",
+        "contactUri": "https://www.godaddy.com/whois/results.aspx?domain=GODADDY.COM"
+      }
+    },
+    "registrarInformation": {
+      "name": "GoDaddy.com, LLC",
+      "ianaId": "146",
+      "abuseContactPhone": "tel:480-624-2505"
+    },
+    "dnssecInformation": {
+      "delegationSigned": "Unsigned"
+    },
+    "authoritativeServers": {
+      "registryServerUrl": "https://rdap.verisign.com/com/v1/domain/godaddy.com",
+      "lastUpdatedFromRegistryRdapDb": "2024-06-18T14:46:35Z",
+      "registrarServerUrl": "https://rdap.godaddy.com/v1/domain/GODADDY.COM",
+      "lastUpdatedFromRegistrarRdapDb": "2024-06-18T14:46:47Z"
+    }
+  }
+}

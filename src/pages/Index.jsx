@@ -1,45 +1,19 @@
 import { useState } from "react";
 import { Container, Text, VStack, Input, Button, Box, Spinner, Alert, AlertIcon } from "@chakra-ui/react";
-import { useQuery } from "react-query";
+import domains from "../data/domains.json";
 
-const fetchDomainAvailability = async (domain) => {
-  try {
-    const response = await fetch(`https://whois-json.who-dat.dev/whois/${domain}`);
-
-    if (!response.ok) {
-      if (response.status >= 500) {
-        throw new Error("Server error. Please try again later.");
-      } else if (response.status === 404) {
-        throw new Error("Domain not found. Please check the domain name and try again.");
-      } else {
-        throw new Error("Network response was not ok");
-      }
-    }
-
-    const data = await response.json();
-
-    if (data.error) {
-      throw new Error(data.error);
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching domain availability:", error);
-    throw error;
-  }
+const checkDomainAvailability = (domain) => {
+  return domains.hasOwnProperty(domain.toLowerCase());
 };
 
 const Index = () => {
   const [domain, setDomain] = useState("");
-  const [search, setSearch] = useState("");
-
-  const { data, error, isLoading } = useQuery(["domainAvailability", search], () => fetchDomainAvailability(search), {
-    enabled: !!search,
-  });
+  const [search, setSearch] = useState(null);
 
   const handleSearch = () => {
     console.log("Searching for domain:", domain);
-    setSearch(domain);
+    const isUnavailable = checkDomainAvailability(domain);
+    setSearch({ domain, isUnavailable });
   };
 
   return (
@@ -49,16 +23,9 @@ const Index = () => {
         
         <Input placeholder="Enter domain name" value={domain} onChange={(e) => setDomain(e.target.value)} />
         <Button onClick={handleSearch} colorScheme="blue">Check Availability</Button>
-        {isLoading && <Spinner />}
-        {error && (
-          <Alert status="error">
-            <AlertIcon />
-            {error.message.includes("NetworkError") ? "Network error. Please check your internet connection and try again." : error.message}
-          </Alert>
-        )}
-        {data && (
+        {search && (
           <Box>
-            {data.registered ? (
+            {search.isUnavailable ? (
               <Text>This domain is not available.</Text>
             ) : (
               <Text>This domain is available for $11.97.</Text>
